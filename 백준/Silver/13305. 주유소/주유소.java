@@ -18,7 +18,10 @@ public class Main {
         int price = road[0]*oil[0];   // 처음 도시는 다음 거리만큼 무조건 넣어야 함
         
         for(int i=0; i<road.length - 1; i++) {
-            price += oil[i]*road[i + 1] < oil[i + 1]*road[i + 1] ? oil[i]*road[i + 1] : oil[i + 1]*road[i + 1]; 
+            int a =  oil[i]*road[i + 1];
+            int b = oil[i + 1]*road[i + 1];
+            price += (a<b) ? a : b;
+                
         }
         
         System.out.println(price);
