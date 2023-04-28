@@ -5,8 +5,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         
-        int[] road = new int[N - 1];    // 도로 길이
-        int[] oil = new int[N];         // 기름값
+        int[] road = new int[N - 1];        // 도로 길이
+        int[] oil = new int[N];             // 기름값
         
         for(int i=0; i<road.length; i++) {
             road[i] = sc.nextInt();
@@ -15,13 +15,12 @@ public class Main {
             oil[i] = sc.nextInt();
         }
         
-        int price = road[0]*oil[0];   // 처음 도시는 다음 거리만큼 무조건 넣어야 함
-        
-        for(int i=0; i<road.length - 1; i++) {
-            int a =  oil[i]*road[i + 1];
-            int b = oil[i + 1]*road[i + 1];
-            price += (a<b) ? a : b;
-                
+        int price = 0;
+        int min = oil[0];                   // 처음 기름값이니까 얘가 최소값
+        for(int i=0; i<road.length; i++) {
+            if(oil[i] < min)
+                min = oil[i];
+            price += (min*road[i]);         // 기름의 최소값 * 도로길이
         }
         
         System.out.println(price);
