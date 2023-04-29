@@ -13,7 +13,7 @@ public class Main {
         
         Arrays.sort(plan, Collections.reverseOrder());  // 주려고 했던 팁 내림차순 정렬
         
-        long tip = 0;                           // (N-1)이 100,000이고, tip의 최대값도 100,000이기 때문에 long 선언
+        long tip = 0;                           // 순서가 (100,000-1)이고, tip의 최대값도 100,000이기 때문에 long 선언
         for(int i=0; i<N; i++) {
             int minus = plan[i] - order[i];     // 주려고 했던 팁 - 순서
             if(minus > 0) {
