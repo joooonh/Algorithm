@@ -1,9 +1,10 @@
+// 방법 1
 import java.util.*;
 
 public class Main {
     
     public static boolean[][] board;
-    public static int min = 64;                               // 8*8
+    public static int min = 64;                 // 8*8
     
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
@@ -53,4 +54,63 @@ public class Main {
         
         min = Math.min(cnt, min);
     }
+}
+
+// 방법 2 
+import java.util.*;
+
+public class Main {
+    
+    public static char[][] standard1 = new char[][] {
+        {'W', 'B', 'W', 'B','W', 'B','W', 'B'},
+        {'B', 'W', 'B', 'W','B', 'W','B', 'W'},
+        {'W', 'B', 'W', 'B','W', 'B','W', 'B'},
+        {'B', 'W', 'B', 'W','B', 'W','B', 'W'},
+        {'W', 'B', 'W', 'B','W', 'B','W', 'B'},
+        {'B', 'W', 'B', 'W','B', 'W','B', 'W'},
+        {'W', 'B', 'W', 'B','W', 'B','W', 'B'},
+        {'B', 'W', 'B', 'W','B', 'W','B', 'W'}
+    };
+    
+    public static char[][] standard2 = new char[][] {
+        {'B', 'W', 'B', 'W','B', 'W','B', 'W'},
+        {'W', 'B', 'W', 'B','W', 'B','W', 'B'},
+        {'B', 'W', 'B', 'W','B', 'W','B', 'W'},
+        {'W', 'B', 'W', 'B','W', 'B','W', 'B'},
+        {'B', 'W', 'B', 'W','B', 'W','B', 'W'},
+        {'W', 'B', 'W', 'B','W', 'B','W', 'B'},
+        {'B', 'W', 'B', 'W','B', 'W','B', 'W'},
+        {'W', 'B', 'W', 'B','W', 'B','W', 'B'}
+    };
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();                           // N행
+        int M = sc.nextInt();                           // M열
+        char[][] board = new char[N][M];
+        int min = 64;
+        int cnt1 = 0, cnt2 = 0;
+        
+        for(int i=0; i < N; i++) {
+            board[i] = sc.next().toCharArray();         // 주어진 보드
+        }
+        
+        for(int i = 0; i < N - 7; i++) {
+            for(int j = 0; j < M - 7; j++) {
+                
+                for(int n = i, a = 0; n < i + 8; n++, a++) {
+                    for(int m = j, b = 0; m < j + 8; m++, b++) {
+                        if(standard1[a][b] != board[n][m])
+                            cnt1++;
+                        if(standard2[a][b] != board[n][m])
+                            cnt2++;
+                    }
+                }
+                min = Math.min(min, Math.min(cnt1, cnt2));
+                cnt1 = 0; cnt2 = 0;
+            }
+        }
+        System.out.println(min);
+    }
+    
 }
