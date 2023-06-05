@@ -30,87 +30,45 @@ public class Main {
         // 적록색약 x
         for(int i=0; i<N; i++) {
             for(int j=0; j<N; j++) {
-                if (map[i][j] == 'R' && !visited[i][j]) {
-                    dfsR(i, j);
-                    cntA++;
-                } else if (map[i][j] == 'G' && !visited[i][j]) {
-                    dfsG(i, j);
-                    cntA++;
-                } else if (map[i][j] == 'B' && !visited[i][j]) {
-                    dfsB(i, j); 
+                if (!visited[i][j]) {
+                    dfs(i, j);
                     cntA++;
                 }
             }
         }
         
-        visited = new boolean[N][N];
         // 적록색약 o
+        visited = new boolean[N][N];
+        
         for(int i=0; i<N; i++) {
             for(int j=0; j<N; j++) {
-                if ((map[i][j] == 'R' || map[i][j] == 'G') && !visited[i][j]) {
+                if (map[i][j] == 'G')
+                    map[i][j] = 'R';
+            }
+         }
+        
+        for(int i=0; i<N; i++) {
+            for(int j=0; j<N; j++) {
+                if (!visited[i][j]) {
                     dfs(i, j);
                     cntB++;
-                } else if (map[i][j] == 'B' && !visited[i][j]) {
-                    dfsB(i, j); 
-                    cntB++;
-                }
+                } 
             }
         }
         System.out.println(cntA + " " + cntB); 
     
     }
     
-    public static void dfsR(int x, int y) {
-        visited[x][y] = true;
-        
-        for(int i=0; i<4; i++) {
-            int nx = x + dx[i]; 
-            int ny = y + dy[i];
-            
-            if (nx >= 0 && ny >= 0 && nx < N && ny < N) {
-                if (map[nx][ny] == 'R' && !visited[nx][ny]) {
-                    dfsR(nx, ny);
-                } 
-            }
-        }
-    }
-    public static void dfsG(int x, int y) {
-        visited[x][y] = true;
-        
-        for(int i=0; i<4; i++) {
-            int nx = x + dx[i]; 
-            int ny = y + dy[i];
-            
-            if (nx >= 0 && ny >= 0 && nx < N && ny < N) {
-                if (map[nx][ny] == 'G' && !visited[nx][ny]) {
-                    dfsG(nx, ny);
-                } 
-            }
-        }
-    }
-    public static void dfsB(int x, int y) {
-        visited[x][y] = true;
-        
-        for(int i=0; i<4; i++) {
-            int nx = x + dx[i]; 
-            int ny = y + dy[i];
-            
-            if (nx >= 0 && ny >= 0 && nx < N && ny < N) {
-                if (map[nx][ny] == 'B' && !visited[nx][ny]) {
-                    dfsB(nx, ny);
-                } 
-            }
-        }
-    }
     public static void dfs(int x, int y) {
         visited[x][y] = true;
+        char temp = map[x][y];
         
         for(int i=0; i<4; i++) {
             int nx = x + dx[i]; 
             int ny = y + dy[i];
             
             if (nx >= 0 && ny >= 0 && nx < N && ny < N) {
-                if ((map[nx][ny] == 'R' || map[nx][ny] == 'G') && !visited[nx][ny]) {
+                if (map[nx][ny] == temp && !visited[nx][ny]) {
                     dfs(nx, ny);
                 } 
             }
