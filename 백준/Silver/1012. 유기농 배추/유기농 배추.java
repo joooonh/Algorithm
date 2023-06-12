@@ -2,71 +2,65 @@ import java.util.*;
 
 public class Main {
     
-    // 상하좌우
-    public static int[] dirX = {0, 0, -1, 1};
-    public static int[] dirY = {-1, 1, 0, 0};
+    static int[][] map; 
+    static boolean[][] visited; 
     
-    // 배추밭, 방문여부 배열
-    public static int[][] map;
-    public static boolean[][] visit;
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, -1, 1}; 
     
-    // 가로, 세로, 배추개수 변수
-    public static int M, N, K;
-    // 상하좌우로 이동한 x, y
-    public static int nowX, nowY;
-    // 배추흰지렁이 마리 수 
-    public static int cnt;
+    static int M, N, K;
     
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
-        // 테스트케이스 
         int T = sc.nextInt();
-        for(int i=0; i < T; i++) {
-            // 배추밭 가로, 세로, 배추개수 
+        
+        for(int t=0; t<T; t++) {
+            
             M = sc.nextInt();
             N = sc.nextInt();
             K = sc.nextInt();
             
-            map = new int[M][N]; 
-            visit = new boolean[M][N];
+            map = new int[M][N];
+            visited = new boolean[M][N];
             
-            // 배추밭 생성
-            for(int j=0; j < K; j++) {
-                int x = sc.nextInt();
-                int y = sc.nextInt();
-                map[x][y] = 1;
+            for(int i=0; i<K; i++) {
+                map[sc.nextInt()][sc.nextInt()] = 1;
             }
             
-            // 처음부터 돌면서 1이면서 방문 안한 곳 -> 방문
-            cnt = 0;
-            for(int j=0; j < M; j++) {
-                for(int k=0; k < N; k++) {
-                    if(map[j][k] == 1 && !visit[j][k]) {
-                        dfs(j, k);
-                        cnt++;
+            int cnt = 0;
+            
+            for(int i=0; i<M; i++) {
+                for(int j=0; j<N; j++) {
+                    if (map[i][j] == 1 && !visited[i][j]) {
+                        bfs(i, j);
+                        cnt ++;
                     }
                 }
             }
-            
             System.out.println(cnt);
         }
     }
     
-    // 상하좌우 돌기
-    public static void dfs(int x, int y) {
-        visit[x][y] = true;
+    public static void bfs(int x, int y) {
+        Queue<int[]> q = new LinkedList<>();
         
-        for(int i=0; i < 4; i++) {
-            nowX = x + dirX[i];
-            nowY = y + dirY[i];
+        q.offer(new int[]{x, y});
+        visited[x][y] = true; 
+        
+        while(!q.isEmpty()) {
+            int[] value = q.poll();
             
-            // 범위 확인
-            if(nowX >= 0 && nowY >= 0 && nowX < M && nowY < N) {
-                if(map[nowX][nowY] == 1 && !visit[nowX][nowY]) {
-                    dfs(nowX, nowY); 
+            for(int i=0; i<4; i++) {
+                int nx = value[0] + dx[i];
+                int ny = value[1] + dy[i]; 
+                
+                if (nx >= 0 && ny >= 0 && nx < M && ny < N) {
+                    if (map[nx][ny] == 1 && !visited[nx][ny]) {
+                        q.offer(new int[]{nx, ny});
+                        visited[nx][ny] = true;
+                    }
                 }
             }
         }
-        
     }
 }
