@@ -1,14 +1,15 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
+    public static void main(String args[]) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(bf.readLine());
         
         for(int tc = 0; tc < t; tc++) {
             
-            int k = sc.nextInt(); 
-            int n = sc.nextInt();
+            int k = Integer.parseInt(bf.readLine()); 
+            int n = Integer.parseInt(bf.readLine());
             
             int[][] dp = new int[k + 1][n + 1]; 
             
