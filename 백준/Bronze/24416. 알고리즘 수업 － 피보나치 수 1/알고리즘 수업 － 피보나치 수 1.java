@@ -19,9 +19,9 @@ public class Main {
     }
     
     public static int fib(int n) {
-        cnt++;
         
         if (n == 1 || n == 2) {
+            cnt++;
             return 1;
         } 
         
@@ -29,9 +29,8 @@ public class Main {
     }
     
     public static int fibonacci(int n) {
-        int[] f = new int[41];
-        f[1] = 1; 
-        f[2] = 1;
+        int[] f = new int[n + 1];
+        f[1] = f[2] = 1; 
         
         for(int i=3; i<=n; i++) {
             cnt++;
