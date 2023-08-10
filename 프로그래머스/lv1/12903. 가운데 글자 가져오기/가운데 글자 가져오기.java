@@ -6,7 +6,7 @@ class Solution {
         if (length % 2 != 0) {
             answer += s.charAt(length/2);
         } else {
-            answer += String.valueOf(s.charAt(length/2 - 1)) + String.valueOf(s.charAt(length/2));
+            answer = s.substring(length/2 - 1, length/2 + 1);
         } 
         return answer;
     }
