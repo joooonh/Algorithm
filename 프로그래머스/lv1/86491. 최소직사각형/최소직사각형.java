@@ -2,23 +2,14 @@ import java.util.*;
 
 class Solution {
     public int solution(int[][] sizes) {
-        int maxW = 0;
-        int maxH = 0;
+        int width = 0; 
+        int height = 0; 
         
-        for(int i=0; i<sizes.length; i++) {
-            int w = sizes[i][0];
-            int h = sizes[i][1];
-            
-            if (w < h) {
-                int temp = w; 
-                w = h; 
-                h = temp;
-            }
-            maxW = Math.max(maxW, w); 
-            maxH = Math.max(maxH, h);
-            
+        for(int[] arr : sizes) {
+            width = Math.max(width, Math.max(arr[0], arr[1])); 
+            height = Math.max(height, Math.min(arr[0], arr[1]));
         }
         
-        return maxW*maxH;
+        return width*height;
     }
 }
